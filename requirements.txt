@@ -1,4 +1,4 @@
-// These are the packages that we need in our Python environment.
+# These are the packages that we need in our Python environment.
 langchain 
 wikipedia 
 langchain-community 
