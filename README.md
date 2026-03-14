@@ -23,22 +23,8 @@
 3. [Directory](#Directory)
 4. [CrateDevelopmentEnvironment](#CreateDevelopmentEnvironment)
 
-<!-- READMEの作成方法のドキュメントのリンク -->
-<!-- <br />
-<div align="right">
-    <a href="READMEの作成方法のリンク"><strong>READMEの作成方法 »</strong></a>
-</div>
-<br />
-<!-- Dockerfileのドキュメントのリンク -->
-<!-- <div align="right">
-    <a href="Dockerfileの詳細リンク"><strong>Dockerfileの詳細 »</strong></a>
-</div>
-<br /> 
-<!-- プロジェクト名を記載 -->
 
-## AI Email Writer
-
-<p><a href="https://github.com/Masahiro-jobson/AI-email-writer-backend.git">This</a> is the backend repository of AI-email-writer</p>
+## AI agnet with Python (Langchain & OpenAI API)
 
 <!-- プロジェクトについて -->
 
@@ -46,76 +32,19 @@
 
 <p>
    This project is focused on creating AI agent with Python and Langchain. <br/>
-  Email contents by sending prompts to the chatbot (used Gemini here).<br/>
+  To create AI agent, I used Open AI API.<br/>
 
-  <h1>Backend (SpringBoot)</h1>
-   In the Backend side, I used SpringBoot framework. There are 4 classes such as <br/>
-  EmailWriterApplication, EmailGeneratorController(Controller),  EmailGeneratorService (Service), EmailRequest.<br/>
-  EmailWriterApplication is the main class for making the program run. EmailRequest handles<br/>
-  Request from @Requestbody in the Controller with emailcontent and tone variables. Due to @Data, it is unnecessary to<br/>
-  make getter, setter, and constructor in this class.<br/>
-  <br/>
-   EmailGeneratorController has @RequestMapping, which sets the endpoint to "/api/email". In that class, EmailGeneratorService object is created. In other way, Constructor of the EmailGeneratorController is created automatically because of @AllArgsConstructor (With this annotation, EmailGenratorService bean object is created in the arguments and passed through).<br/>
-   ResponseEntity<String> is a class and return type (Spring Framework) of gnerateEmail method. @RequestBody inject the function of conversion from JSON to JAVA object, which refers to EmailRequest class in the arguments. The response variable stores the generateEmailReply method of emailGeneratorService class with the parenthesis "emailRequest". And return "response" String variable with .ok method of ResponseEntity.BodyBuilder.<br/>
-   <br/>
-   For using Backend as an application, I used render.com allowing users to make Website. To deploy Spring project in the website, I packed all packages into Dockerfile and deploy it to the website.
-Before making Docker file, made "email-writer-0.0.1-SNAPSHOT.jar" file by executing "mvn clean package -DskipTests". I spent lots of time to extract .jar file because there are lots of errors that I had to find out.
-
-<h1>Hands-on Video</h1>
-
-
-https://github.com/user-attachments/assets/fc08b1e6-d858-44b0-a61c-4af4dcece9e7
-
-
-
-
-
-  <h1>Frontend(React)</h1>
-   In the Frontend side, I used React framework with Vite. I mainly made 5 useState hooks including emailContent, tone, generatedReply, loading, error. <br/>
-    For generatedReply, loading, and error, these variable are used in handleSubmit function. handleSubmit function has async function with await keywords. They allow to stop the code execution. For instance, handleSubmit function is stopped till promise is resolved (e.,g API request (backend side) is completed. In that process, the code return error value with console.error if error is catched. After try and catch process, setLoading is set to false value, which shows stop loading.<br/>
-    <br/>
-    For rendering in the return statement, all design and word size are used from material UI.
-It provides the modern design with this application. For each TextField and Select component, I set onChange prop which has event handler and set onClick prop which handle the click event for Button component.
- <br/>
-<img width="663" alt="image" src="https://github.com/user-attachments/assets/37d4230b-7328-4faf-94c7-196b9ea33908" />
-<br/>
-
-<h1>Google extension</h1>
-  email-writer-ext folder allows the user to use this application to use in Google chrome. For manifest.json, it's mainly based on the template provided by Google; however, I added host_permissions proxy, which connects to backend side ("https://localhost:8080/*") and accept the extension permission to access any URL that matches the pattern (*://mail.google.com/* ).
-  The critical point of content.js is observer variable, which refers to MutationObserver object which has a call back function inside. This variable allows the application to detect the change of dialog box (shown with '.aDh, .btC, [role="dialog"]') as below.<br/>
-   <br/>
-  Ex.1 Reply to Sender (inside the received mail) <br/>
-<img width="1127" alt="image" src="https://github.com/user-attachments/assets/9005181d-1f7d-424f-8c31-3107118c0e3e" />
-<br/>
-<br/>
-  Ex.2 Reply to Sender (when it is popped out) <br/>
-  <img width="450" alt="image" src="https://github.com/user-attachments/assets/04e43ecb-5b9a-4a23-91c5-471b40671dfe" />
-
-
-    
-</p>
-<!-- プロジェクトの概要を記載 -->
-<!-- 
-  <p align="left">
-    <br />
-    プロジェクト詳細にBacklogのWikiのリンク 
-    <a href="Backlogのwikiリンク"><strong>プロジェクト詳細 »</strong></a>
-    <br />
-    <br />　-->
 
 <p align="right">(<a href="#top">Back to Top</a>)</p>
 ## Environment
 
-<!-- 言語、フレームワーク、ミドルウェア、インフラの一覧とバージョンを記載 -->
 
-| Language・Framework  | Version |
+| Stacks  | Version |
 | --------------------- | ---------- |
-| Java                  | 17.0.10    |
-| Spring Boot           | 3.4.3      |
-| Node.js               | 22.14.0    |
-| React                 | 19.0.0     |
+| Python                  | 3.14.0    |
+| LangChain           | 0.3.28      |
+| OpenAI Package (LLM)               | 2.28.0    |
 
-For other package version, please refer to pom.xml and package.json.
 
 <p align="right">(<a href="#top">Back to Top</a>)</p>
 
@@ -125,135 +54,20 @@ For other package version, please refer to pom.xml and package.json.
 
 ❯ tree -I 'node_modules'
 ```bash
-.
-├── email-writer-backend
-│   ├── Dockerfile
-│   ├── HELP.md
-│   ├── README.md
-│   ├── mvnw
-│   ├── mvnw.cmd
-│   ├── pom.xml
-│   ├── src
-│   │   ├── main
-│   │   │   ├── java
-│   │   │   │   └── com
-│   │   │   │       └── email
-│   │   │   │           └── emai
-│   │   │   │               └── writer
-│   │   │   │                   ├── EmailGeneratorController.java
-│   │   │   │                   ├── EmailGeneratorService.java
-│   │   │   │                   ├── EmailRequest.java
-│   │   │   │                   └── EmailWriterApplication.java
-│   │   │   └── resources
-│   │   │       ├── application.properties
-│   │   │       ├── static
-│   │   │       └── templates
-│   │   └── test
-│   │       └── java
-│   │           └── com
-│   │               └── email
-│   │                   └── emai
-│   │                       └── writer
-│   │                           └── EmailWriterApplicationTests.java
-│   └── target
-│       ├── classes
-│       │   ├── application.properties
-│       │   └── com
-│       │       └── email
-│       │           └── emai
-│       │               └── writer
-│       │                   ├── EmailGeneratorController.class
-│       │                   ├── EmailGeneratorService.class
-│       │                   ├── EmailRequest.class
-│       │                   └── EmailWriterApplication.class
-│       ├── email-writer-0.0.1-SNAPSHOT.jar
-│       ├── email-writer-0.0.1-SNAPSHOT.jar.original
-│       ├── generated-sources
-│       │   └── annotations
-│       ├── generated-test-sources
-│       │   └── test-annotations
-│       ├── maven-archiver
-│       │   └── pom.properties
-│       ├── maven-status
-│       │   └── maven-compiler-plugin
-│       │       ├── compile
-│       │       │   └── default-compile
-│       │       │       ├── createdFiles.lst
-│       │       │       └── inputFiles.lst
-│       │       └── testCompile
-│       │           └── default-testCompile
-│       │               ├── createdFiles.lst
-│       │               └── inputFiles.lst
-│       └── test-classes
-│           └── com
-│               └── email
-│                   └── emai
-│                       └── writer
-│                           └── EmailWriterApplicationTests.class
-└── email-writer-frontend
-    ├── README.md
-    ├── email-writer-ext
-    │   ├── content.css
-    │   ├── content.js
-    │   ├── hina_drawing.png
-    │   └── manifest.json
-    ├── eslint.config.js
-    ├── index.html
-    ├── package-lock.json
-    ├── package.json
-    ├── public
-    │   └── vite.svg
-    ├── src
-    │   ├── App.css
-    │   ├── App.jsx
-    │   ├── assets
-    │   │   └── react.svg
-    │   ├── index.css
-    │   └── main.jsx
-    └── vite.config.js
+
+AI_Agent_Tutorial/
+├── .env
+├── .git/
+├── .gitignore
+├── .venv/
+├── main.py
+├── requirements.txt
+├── tools.py
+└── venv/
 
 ```
 
 <p align="right">(<a href="#top">Back to Top</a>)</p>
-
-## CreateDevelopmentEnvironment
-
-
-<!-- コンテナの作成方法、パッケージのインストール方法など、開発環境構築に必要な情報を記載 -->
-<!-- 
-### コンテナの作成と起動
-
-.env ファイルを以下の環境変数例と[環境変数の一覧](#環境変数の一覧)を元に作成
-
-.env
-MYSQL_ROOT_PASSWORD=root
-MYSQL_DATABASE=django-db
-MYSQL_USER=django
-MYSQL_PASSWORD=django
-MYSQL_HOST=db
-MYSQL_PORT=3306
-SECRET_KEY=django
-DJANGO_SETTINGS_MODULE=project.settings.local
-
-
-.env ファイルを作成後、以下のコマンドで開発環境を構築 -->
-
-
-### Check how it works
-
-Check if you can access to https://verdant-sunburst-f21397.netlify.app/ <br/>
-However, the server (backend) is made with render free plan, so you cannot get <br/>
-a reply because the sever has a limited time. <br/>
-Please see the following picture as an example. <br/>
-
-Ex.1 Reply with professional tone. <br/>
-<img width="893" alt="image" src="https://github.com/user-attachments/assets/9dac86c0-6b0a-4c99-a8c5-6c02102928ec" />
-
-Ex.2 Reply with casual tone. <br/>
-<img width="893" alt="image" src="https://github.com/user-attachments/assets/2d73b291-7fa0-4da0-b3c8-b4b0aa90fc19" />
-
-Ex.3 Reply with friendly tone. <br/>
-<img width="877" alt="image" src="https://github.com/user-attachments/assets/f18aef02-75c0-4c51-ade2-cd025dce72ad" />
 
 
 <!-- 
