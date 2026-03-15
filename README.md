@@ -155,4 +155,3 @@ make build
 
 を実行して Docker image を更新してください-->
 
-<p align="right">(<a href="#top">Back to Top</a>)</p>
